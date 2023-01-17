@@ -1,7 +1,7 @@
-const MAX_Y = 50,
-  MAX_X = 50;
-const MIN_Y = -50,
-  MIN_X = -50;
+const MAX_Y = 15,
+  MAX_X = 15;
+const MIN_Y = -15,
+  MIN_X = -15;
 
 class CPDrawer {
   private canvas: HTMLCanvasElement;
@@ -16,28 +16,28 @@ class CPDrawer {
   }
 
   // Returns the physical x-coordinate of a logical x-coordinate:
-  private XC(x: number) {
+  XC(x: number) {
     return ((x - MIN_X) / (MAX_X - MIN_X)) * this.widthCanvas;
   }
 
   // Returns the physical y-coordinate of a logical y-coordinate:
-  private YC(y: number) {
+  YC(y: number) {
     return (
       this.heightCanvas - ((y - MIN_Y) * this.heightCanvas) / (MAX_Y - MIN_Y)
     );
   }
 
   // Returns the logical x-coordinate of a physical x-coordinate:
-  private XL(x: number) {
+  XL(x: number) {
     return (x * (MAX_X - MIN_X)) / this.widthCanvas + MIN_X;
   }
 
   // Returns the logical y-coordinate of a physical y-coordinate:
-  private YL(y: number) {
+  YL(y: number) {
     return MAX_Y - (y * (MAX_Y - MIN_Y)) / this.heightCanvas;
   }
 
-  private drawAxis() {
+  drawAxis() {
     const ctx = this.canvas.getContext("2d"),
       cty = this.canvas.getContext("2d");
 
@@ -53,7 +53,7 @@ class CPDrawer {
       cty.stroke();
 
       ctx.font = "10px Arial";
-      ctx.fillStyle = "#000";
+      ctx.fillStyle = "#fffff";
       for (let i = MIN_X; i < MAX_X; i++) {
         if (i === 0) continue;
         ctx.fillText(`${i}`, this.XC(i), this.YC(-0.2));
@@ -64,16 +64,16 @@ class CPDrawer {
     }
   }
 
-  private drawPoint(x: number, y: number, state: boolean) {
+  drawPoint(x: number, y: number, state: boolean) {
     const rect = this.canvas.getBoundingClientRect(),
       ctx = this.canvas.getContext("2d");
     if (ctx) {
-      ctx.fillStyle = state ? "#FF0000" : "#FFFFF";
+      ctx.fillStyle = state ? "#00000" : "#FFFFF";
       ctx.fillRect(x - 2, y - 2, 4, 4); //square
     }
   }
 
-  private clearCanvas() {
+  clearCanvas() {
     const context = this.canvas.getContext("2d");
     if (context == null) {
       return;
