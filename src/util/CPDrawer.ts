@@ -54,7 +54,25 @@ class CPDrawer {
       ctx = this.canvas.getContext("2d");
     if (ctx) {
       ctx.fillStyle = state ? "#00000" : "#FFFFF";
-      ctx.fillRect(x, y, this.widthCanvas / MAX_X, this.heightCanvas / MAX_Y); //square
+      ctx.fillRect(
+        this.XC(x),
+        this.YC(y),
+        this.widthCanvas / MAX_X,
+        this.heightCanvas / MAX_Y
+      ); //square
+    }
+  }
+  drawCell(x: number, y: number) {
+    const rect = this.canvas.getBoundingClientRect(),
+      ctx = this.canvas.getContext("2d");
+    if (ctx) {
+      ctx.fillStyle = "#00000";
+      ctx.fillRect(
+        this.XC(x),
+        this.YC(y),
+        this.widthCanvas / MAX_X,
+        this.heightCanvas / MAX_Y
+      ); //square
     }
   }
 
