@@ -14,6 +14,7 @@ export default function Canvas({ matrix }: Props) {
     if (canvasRef.current) {
       drawer = new CPDrawer(canvasRef.current);
       drawer.clearCanvas();
+      drawer.drawGrid();
       printBoardState();
     }
   }, [matrix]);

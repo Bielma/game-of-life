@@ -1,5 +1,5 @@
-const MAX_Y = 25,
-  MAX_X = 25;
+const MAX_Y = 10,
+  MAX_X = 10;
 
 class CPDrawer {
   private canvas: HTMLCanvasElement;
@@ -37,8 +37,8 @@ class CPDrawer {
     const ctx = this.canvas.getContext("2d"),
       cty = this.canvas.getContext("2d");
 
-    for (let x = 0; x <= this.widthCanvas; x += 20) {
-      for (let y = 0; y <= this.heightCanvas; y += 20) {
+    for (let x = 0; x <= this.widthCanvas; x += this.widthCanvas / MAX_X) {
+      for (let y = 0; y <= this.heightCanvas; y += this.heightCanvas / MAX_Y) {
         ctx?.moveTo(x, 0);
         ctx?.lineTo(x, this.heightCanvas);
         ctx?.stroke();
@@ -54,7 +54,7 @@ class CPDrawer {
       ctx = this.canvas.getContext("2d");
     if (ctx) {
       ctx.fillStyle = state ? "#00000" : "#FFFFF";
-      ctx.fillRect(x, y, 21, 21); //square
+      ctx.fillRect(x, y, this.widthCanvas / MAX_X, this.heightCanvas / MAX_Y); //square
     }
   }
 
