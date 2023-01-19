@@ -55,10 +55,16 @@ function App() {
     setMatrixBoard(newMatrix);
   }
 
+  const toggleCellValue = (x: number, y: number) => {
+    console.log({ x, y });
+    let newMatrix = matrixBoard;
+    newMatrix[x][y] = !newMatrix[x][y];
+    setMatrixBoard(newMatrix);
+  };
   return (
     <div className="App row">
       <div className="col-md-12">
-        <Canvas matrix={matrixBoard} />
+        <Canvas matrix={matrixBoard} toggleCellValue={toggleCellValue} />
       </div>
 
       <div className="col-md-12 text-center mt-4">
