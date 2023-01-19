@@ -3,8 +3,9 @@ import CPDrawer from "../util/CPDrawer";
 
 interface Props {
   matrix: boolean[][];
+  toggleCellValue: Function;
 }
-export default function Canvas({ matrix }: Props) {
+export default function Canvas({ matrix, toggleCellValue }: Props) {
   const canvasRef = useRef(null);
   let drawer: CPDrawer;
 
@@ -29,10 +30,30 @@ export default function Canvas({ matrix }: Props) {
       }
     }
   }
+
+  const handleClick = (
+    evt: React.MouseEvent<HTMLCanvasElement, MouseEvent>
+  ) => {
+    evt.preventDefault();
+    if (canvasRef.current) {
+      const canvas: HTMLCanvasElement = canvasRef.current;
+      const rect = canvas.getBoundingClientRect();
+      const physicalXCoordinate = evt.clientX - rect.left,
+        physicalYCoordinate = evt.clientY - rect.top,
+        logicalXCoordinate = drawer.XL(physicalXCoordinate),
+        logicalYCoordinate = drawer.YL(physicalYCoordinate);
+
+      toggleCellValue(
+        Math.floor(logicalXCoordinate),
+        Math.floor(logicalYCoordinate)
+      );
+    }
+  };
+
   return (
     <canvas
-      id="canvas_plane"
-      //onClick={handleClick}
+      id="canvasGL"
+      onClick={handleClick}
       //onContextMenu={handleClick}
       width={500}
       height={500}
