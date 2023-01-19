@@ -17,7 +17,7 @@ function App() {
     for (let i = 0; i < n; i++) {
       matrix[i] = new Array(n);
       for (let j = 0; j < n; j++) {
-        matrix[i][j] = getRandomInt(1, 4) == 3 ? true : false;
+        matrix[i][j] = getRandomInt(1, 15) == 3;
       }
     }
     setMatrixBoard(matrix);
