@@ -65,7 +65,7 @@ function App() {
         </Button>
       </div>
       <div className="col-md-12 text-center mt-2">
-        <Button onClick={randomPopulation}>Init Random population</Button>
+        <Button onClick={randomPopulation}>Random population</Button>
       </div>
     </div>
   );
