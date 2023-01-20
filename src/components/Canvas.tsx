@@ -43,7 +43,7 @@ function Canvas({ matrixInit, toggleCellValue, gameState }: Props) {
   const runGameOfLife = async () => {
     let currentMatrix = matrixBoard;
     let newMatrix = currentMatrix;
-
+    const n = 10;
     while (gameState == "run") {
       drawer.clearCanvas();
       drawer.drawGrid();
@@ -54,24 +54,44 @@ function Canvas({ matrixInit, toggleCellValue, gameState }: Props) {
             await new Promise((r) => setTimeout(r, 100));
           }
           let numNeighbors = 0;
-          if (i - 1 >= 0 && i + 1 < 10 && j - 1 >= 0 && j + 1 < 10) {
-            if (currentMatrix[i][j + 1]) numNeighbors += 1;
-            if (currentMatrix[i][j - 1]) numNeighbors += 1;
-            if (currentMatrix[i - 1][j]) numNeighbors += 1;
-            if (currentMatrix[i - 1][j]) numNeighbors += 1;
-            if (currentMatrix[i + 1][j - 1]) numNeighbors += 1;
-            if (currentMatrix[i + 1][j + 1]) numNeighbors += 1;
-            if (currentMatrix[i - 1][j - 1]) numNeighbors += 1;
-            if (currentMatrix[i - 1][j + 1]) numNeighbors += 1;
 
-            if (
-              currentMatrix[i][j] &&
-              (numNeighbors == 1 || numNeighbors > 3)
-            ) {
-              newMatrix[i][j] = false;
-            } else if (!newMatrix[i][j] && numNeighbors == 3) {
-              newMatrix[i][j] = true;
-            }
+          if (currentMatrix[i][j + 1 >= n ? j - (n - 1) : j + 1])
+            numNeighbors += 1;
+          if (currentMatrix[i][j - 1 < 0 ? j + (n - 1) : j - 1])
+            numNeighbors += 1;
+          if (currentMatrix[i + 1 >= n ? i - (n - 1) : i + 1][j])
+            numNeighbors += 1;
+          if (currentMatrix[i - 1 < 0 ? i + (n - 1) : i - 1][j])
+            numNeighbors += 1;
+          if (
+            currentMatrix[i + 1 >= n ? i - (n - 1) : i + 1][
+              j - 1 < 0 ? j + (n - 1) : j - 1
+            ]
+          )
+            numNeighbors += 1;
+          if (
+            currentMatrix[i + 1 >= n ? i - (n - 1) : i + 1][
+              j + 1 >= n ? j - (n - 1) : j + 1
+            ]
+          )
+            numNeighbors += 1;
+          if (
+            currentMatrix[i - 1 < 0 ? i + (n - 1) : i - 1][
+              j - 1 < 0 ? j + (n - 1) : j - 1
+            ]
+          )
+            numNeighbors += 1;
+          if (
+            currentMatrix[i - 1 < 0 ? i + (n - 1) : i - 1][
+              j + 1 >= n ? j - (n - 1) : j + 1
+            ]
+          )
+            numNeighbors += 1;
+
+          if (currentMatrix[i][j] && (numNeighbors == 1 || numNeighbors > 3)) {
+            newMatrix[i][j] = false;
+          } else if (!newMatrix[i][j] && numNeighbors == 3) {
+            newMatrix[i][j] = true;
           }
         }
       }
